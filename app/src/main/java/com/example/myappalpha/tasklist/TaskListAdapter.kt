@@ -1,9 +1,10 @@
 package com.example.myappalpha.tasklist
 
-import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myappalpha.R
 
@@ -22,17 +23,16 @@ class TaskListAdapter : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        TaskViewHolder().bind()
+        holder.bind(this.currentList[position])
     }
 
     // on utilise `inner` ici afin d'avoir accès aux propriétés de l'adapter directement
     inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(taskTitle: String) {
-            // on affichera les données ici
+            val textView = itemView.findViewById<TextView>(R.id.task_title)
+            textView.setText(taskTitle)
+            Log.d("test TextView", taskTitle)
+
         }
     }
-
-
-
-
 }
