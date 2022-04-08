@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myappalpha.R
 import com.example.myappalpha.databinding.FragmentTaskListBinding
+import java.util.*
 
 // l'IDE va râler ici car on a pas encore implémenté les méthodes nécessaires
 
@@ -26,6 +27,7 @@ import com.example.myappalpha.databinding.FragmentTaskListBinding
     }
 
     class TaskListAdapter : ListAdapter<Task, TaskListAdapter.TaskViewHolder>(TaskDiffCallback) {
+        var onClickDelete: (Task) -> Unit = {}
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
             val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
@@ -40,6 +42,7 @@ import com.example.myappalpha.databinding.FragmentTaskListBinding
                 val textView = itemView.findViewById<TextView>(R.id.task_title)
                 textView.setText(taskTitle)
             }
+
         }
     }
 

@@ -34,9 +34,15 @@ class TaskListFragment : Fragment() {
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.task_list)
         recyclerView.adapter = adapter
 
-        val button = rootView.getViewById(R.id.floatingActionButton)
+        val buttonAddTask = rootView.getViewById(R.id.floatingActionButton)
+        val buttonDeleteTask = rootView.getViewById(R.id.btnDelete)
 
-        button.setOnClickListener{
+        buttonDeleteTask.setOnClickListener(
+            adapter.onClickDelete = { task -> adapter.currentList.remove(task) }
+        )
+
+
+        buttonAddTask.setOnClickListener{
             val newTask = Task(id = UUID.randomUUID().toString(), title = "Task ${taskList.size + 1}")
             taskList = taskList + newTask
             adapter.submitList(taskList)

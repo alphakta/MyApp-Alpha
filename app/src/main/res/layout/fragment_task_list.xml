@@ -23,6 +23,6 @@
         android:contentDescription="Button FloatingActionButton"
         android:src="@drawable/ic_baseline_plus_one_24"
         app:backgroundTint="#77FF22"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
