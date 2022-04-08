@@ -8,11 +8,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myappalpha.R
 import com.example.myappalpha.databinding.ActivityMainBinding
+import com.example.myappalpha.databinding.FragmentTaskListBinding
 import java.util.*
 
 class TaskListFragment : Fragment() {
     private val adapter = TaskListAdapter()
-    private var binding = ActivityMainBinding.inflate(layoutInflater)
+    private lateinit var binding : FragmentTaskListBinding
 
 //    private var taskList = listOf("Task 1", "Task 2", "Task 3")
 
@@ -23,12 +24,14 @@ class TaskListFragment : Fragment() {
     )
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         adapter.submitList(taskList)
-        return inflater.inflate(R.layout.fragment_task_list, container, false)
+        binding = FragmentTaskListBinding.inflate(layoutInflater)
+        val rootView = binding.root
+        return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val recyclerView = view.findViewById<RecyclerView>(R.id.task_list)
         val rootView = binding.root
+        val recyclerView = rootView.findViewById<RecyclerView>(R.id.task_list)
         recyclerView.adapter = adapter
 
         val button = rootView.getViewById(R.id.floatingActionButton)

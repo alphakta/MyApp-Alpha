@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myappalpha.R
+import com.example.myappalpha.databinding.FragmentTaskListBinding
 
 // l'IDE va râler ici car on a pas encore implémenté les méthodes nécessaires
 
