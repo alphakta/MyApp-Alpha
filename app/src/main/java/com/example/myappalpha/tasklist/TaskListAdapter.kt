@@ -36,9 +36,6 @@ interface TaskListListener {
 }
 
 class TaskListAdapter(val listener: TaskListListener) : ListAdapter<Task, TaskListAdapter.TaskViewHolder>(TaskDiffCallback) {
-//        var onClickDelete: (Task) -> Unit = {}
-//        var onClickEdit: (Task) -> Unit = {}
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
@@ -60,7 +57,6 @@ class TaskListAdapter(val listener: TaskListListener) : ListAdapter<Task, TaskLi
             val buttonEdit = itemView.findViewById<Button>(R.id.btnEditer)
             buttonEdit.setOnClickListener { listener.onClickEdit(task) }
         }
-
     }
 }
 

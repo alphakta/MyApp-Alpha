@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import androidx.activity.viewModels
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myappalpha.R
+import com.example.myappalpha.network.TasksListViewModel
 import com.example.myappalpha.tasklist.Task
 import java.util.*
 
@@ -23,6 +26,7 @@ class FormActivity : AppCompatActivity() {
         val editTextTaskDescription = findViewById<EditText>(R.id.editTextDescription)
 
         val task = intent.getSerializableExtra("taskEdit") as Task?
+        val viewModel: TasksListViewModel by viewModels()
 
         editTextTask.setText(task?.title)
         editTextTaskDescription.setText(task?.description)
