@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.example.myappalpha.R
 import com.example.myappalpha.databinding.ActivityMainBinding
 import com.example.myappalpha.databinding.FragmentTaskListBinding
@@ -21,6 +24,7 @@ import com.example.myappalpha.form.FormActivity
 import com.example.myappalpha.network.Api
 import com.example.myappalpha.network.TasksListViewModel
 import com.example.myappalpha.network.UserInfo
+import com.example.myappalpha.user.UserInfoActivity
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -55,7 +59,19 @@ class TaskListFragment : Fragment() {
         lifecycleScope.launch {
             val infoUser = Api.userWebService.getInfo().body()!!
             val userInfoTextView = view?.findViewById<TextView>(R.id.userInfoTxtView)
+            val avatarImageView = view?.findViewById<ImageView>(R.id.avatarImageView)
+            val lienImage = "https://static.onzemondial.com/photo_article/682895/266910/1200-L-real-madrid-la-statistique-affolante-de-karim-benzema.jpg"
+            avatarImageView?.load(lienImage){
+                crossfade(true)
+                transformations(CircleCropTransformation())
+            }
             userInfoTextView?.text = "${infoUser.firstName} ${infoUser.lastName}"
+            avatarImageView?.setOnClickListener{
+                val intent = Intent(context, UserInfoActivity::class.java)
+                intent.putExtra("lienImage", lienImage)
+                startActivity(intent)
+            }
+
         }
         viewModel.refresh() // on demande de rafraîchir les données sans attendre le retour directement
     }
