@@ -1,19 +1,26 @@
 package com.example.myappalpha.tasklist
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myappalpha.R
 import com.example.myappalpha.databinding.ActivityMainBinding
 import com.example.myappalpha.databinding.FragmentTaskListBinding
+import com.example.myappalpha.form.FormActivity
 import java.util.*
 
 class TaskListFragment : Fragment() {
     private val adapter = TaskListAdapter()
     private lateinit var binding : FragmentTaskListBinding
+    val createTask = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    }
 
 //    private var taskList = listOf("Task 1", "Task 2", "Task 3")
 
@@ -34,19 +41,22 @@ class TaskListFragment : Fragment() {
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.task_list)
         recyclerView.adapter = adapter
 
-        val buttonAddTask = rootView.getViewById(R.id.floatingActionButton)
-        val buttonDeleteTask = rootView.getViewById(R.id.btnDelete)
-
-        buttonDeleteTask.setOnClickListener(
-            adapter.onClickDelete = { task -> adapter.currentList.remove(task) }
-        )
-
+        val buttonAddTask = rootView.getViewById(R.id.btnAddTask)
 
         buttonAddTask.setOnClickListener{
-            val newTask = Task(id = UUID.randomUUID().toString(), title = "Task ${taskList.size + 1}")
-            taskList = taskList + newTask
-            adapter.submitList(taskList)
-            adapter.notifyDataSetChanged()
+            //           val newTask = Task(id = UUID.randomUUID().toString(), title = "Task ${taskList.size + 1}")
+//            taskList = taskList + newTask
+//            adapter.submitList(taskList)
+//            adapter.notifyDataSetChanged()
+
+            val intent = Intent(context, FormActivity::class.java)
+            createTask.launch(intent)
         }
+
+        adapter.onClickDelete = {
+            task -> taskList = taskList - task
+            adapter.submitList(taskList)
+        }
+
     }
 }

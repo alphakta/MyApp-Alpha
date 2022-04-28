@@ -1,8 +1,10 @@
 package com.example.myappalpha.tasklist
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -33,14 +35,18 @@ import java.util.*
             val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
             return TaskViewHolder(itemView)
         }
+
         override fun onBindViewHolder(holder: TaskViewHolder, position: Int)  {
-            holder.bind(this.currentList[position].title)
+            val task = this.currentList[position]
+            holder.bind(task)
         }
 
         inner class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            fun bind(taskTitle: String) {
+            fun bind(task: Task) {
                 val textView = itemView.findViewById<TextView>(R.id.task_title)
-                textView.setText(taskTitle)
+                textView.setText(task.title)
+                val butonDelete = itemView.findViewById<ImageButton>(R.id.btnDeleteTask)
+                butonDelete.setOnClickListener { onClickDelete(task) }
             }
 
         }
