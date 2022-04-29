@@ -104,7 +104,7 @@ class UserInfoActivity : AppCompatActivity() {
             RequestAccess.Args(
                 action = StoragePermissions.Action.READ_AND_WRITE,
                 types = listOf(StoragePermissions.FileType.Image),
-                createdBy = StoragePermissions.CreatedBy.Self
+                createdBy = StoragePermissions.CreatedBy.AllApps
             )
         )
     }
