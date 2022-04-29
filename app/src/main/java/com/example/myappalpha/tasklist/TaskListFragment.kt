@@ -60,28 +60,22 @@ class TaskListFragment : Fragment() {
             val infoUser = Api.userWebService.getInfo().body()!!
             val userInfoTextView = view?.findViewById<TextView>(R.id.userInfoTxtView)
             val avatarImageView = view?.findViewById<ImageView>(R.id.avatarImageView)
-            val lienImage = "https://static.onzemondial.com/photo_article/682895/266910/1200-L-real-madrid-la-statistique-affolante-de-karim-benzema.jpg"
-            avatarImageView?.load(lienImage){
+//          val lienImage = "https://static.onzemondial.com/photo_article/682895/266910/1200-L-real-madrid-la-statistique-affolante-de-karim-benzema.jpg"
+            avatarImageView?.load(infoUser.avatar){
                 crossfade(true)
                 transformations(CircleCropTransformation())
+                error(R.drawable.ic_launcher_background) // affiche une image par défaut en cas d'erreur:
             }
             userInfoTextView?.text = "${infoUser.firstName} ${infoUser.lastName}"
             avatarImageView?.setOnClickListener{
                 val intent = Intent(context, UserInfoActivity::class.java)
-                intent.putExtra("lienImage", lienImage)
+                intent.putExtra("lienImage", infoUser.avatar)
                 startActivity(intent)
             }
 
         }
         viewModel.refresh() // on demande de rafraîchir les données sans attendre le retour directement
     }
-
-//    private var taskList = listOf("Task 1", "Task 2", "Task 3")
-//    private var taskList = listOf(
-//        Task(id = "id_1", title = "Task 1", description = "description 1"),
-//        Task(id = "id_2", title = "Task 2"),
-//        Task(id = "id_3", title = "Task 3")
-//    )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentTaskListBinding.inflate(layoutInflater)
